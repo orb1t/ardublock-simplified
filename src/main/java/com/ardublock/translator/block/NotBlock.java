@@ -6,13 +6,15 @@ import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
 
 public class NotBlock extends TranslatorBlock
 {
-	public NotBlock(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label)
+	public NotBlock( Long blockId, Translator translator, String codePrefix, 
+                   String codeSuffix, String label)
 	{
 		super(blockId, translator, codePrefix, codeSuffix, label);
 	}
 
 	@Override
-	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
+	public String toCode() throws SocketNullException, 
+                                SubroutineNotDeclaredException
 	{
 		String ret = "!( ";
 		TranslatorBlock translatorBlock = this.getRequiredTranslatorBlockAtSocket(0);
