@@ -1,15 +1,9 @@
-package com.ardublock.translator.block.storage;
+package com.ardublock.translator.block.clock;
 
-//import java.util.ResourceBundle;
-//import com.ardublock.core.Context;
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
-//import com.ardublock.translator.block.NumberBlock;
-//import com.ardublock.translator.block.VariableNumberBlock;
-//import com.ardublock.translator.block.exception.BlockException;
 import com.ardublock.translator.block.exception.SocketNullException;
 import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
-
 
 public class RTCGetYearBlock extends TranslatorBlock
 {
@@ -21,28 +15,26 @@ public class RTCGetYearBlock extends TranslatorBlock
 	}
 
 	@Override
-	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
-	{
-		setupEEPROMEnvironment(translator);
-
-			String ret = "EEPROM.write( ";
-			
-			TranslatorBlock tb = this.getRequiredTranslatorBlockAtSocket(0);
-			//if (!(tb instanceof VariableNumberBlock) && !(tb instanceof NumberBlock)) {
-				
-			//	throw new BlockException(blockId, uiMessageBundle.getString("ardublock.error_msg.number_int_slot"));
-			//}
-			
-			ret += tb.toCode();
-			tb = this.getRequiredTranslatorBlockAtSocket(1);
-			ret = "\t"+ret + " , " + tb.toCode() + " ) ;\n";
-			
-		return codePrefix + ret + codeSuffix;
+	public String toCode()
+	{    
+    
+    // Generate variable
+    String clockName = "rtcNow";
+    String varName = translator.getNumberVariable(clockName);
+    /***
+    if (varName == null)
+		{
+      // Add headers
+      translator.addHeaderFile("Wire.h");
+      translator.addHeaderFile("RTClib.h");
+      
+      varName = translator.buildVariableName(clockName);
+      translator.addNumberVariable(clockName, varName);
+      translator.addDefinitionCommand("RTC_DS1307 RTC;");
+      translator.addDefinitionCommand("DateTime " + varName + ";");
+    }
+      ***/
+    
+		return codePrefix + varName + ".year()" + codeSuffix;
 	}
-	
-	private static void setupEEPROMEnvironment(Translator t)
-	{
-		t.addHeaderFile("EEPROM.h");
-	}
-
 }

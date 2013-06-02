@@ -1,3 +1,2 @@
 mvn clean package
-scp -i ~/.ssh/big-mac-berea /home/reynoldsm/git/ardublock/target/ardublock-all.jar craftoeorg@craftofelectronics.org:~/craftofelectronics.org/resources/ardublock-all.jar
-./exec
+scp -i ~/.ssh/big-mac-berea /home/reynoldsm/git/ardublock/target/ardublock-all.jar craftoeorg@craftofelectronics.org:~/craftofelectronics.org/resources/ardublock-all-beta.jar

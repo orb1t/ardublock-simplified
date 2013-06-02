@@ -5714,7 +5714,61 @@
       <description>
         <text>Real-Time Clock Init</text>
       </description>
-
+    </BlockGenus>
+    
+    <BlockGenus name="mcj_rtcgetyear" kind="data" color="232 156 149" initlabel="bg.mcj_rtcgetyear">
+      <description>
+        <text>
+					Get Year from Clock
+				</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="number" connector-kind="plug"/>
+      </BlockConnectors>
+    </BlockGenus>
+    
+    <BlockGenus name="mcj_rtcgetmonth" kind="data" color="232 156 149" initlabel="bg.mcj_rtcgetmonth">
+      <description>
+        <text>
+					Get Month from Clock
+				</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="number" connector-kind="plug"/>
+      </BlockConnectors>
+    </BlockGenus>
+    
+    <BlockGenus name="mcj_rtcgetday" kind="data" color="232 156 149" initlabel="bg.mcj_rtcgetday">
+      <description>
+        <text>
+					Get Day from Clock
+				</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="number" connector-kind="plug"/>
+      </BlockConnectors>
+    </BlockGenus>
+    
+    <BlockGenus name="mcj_rtcgethour" kind="data" color="232 156 149" initlabel="bg.mcj_rtcgethour">
+      <description>
+        <text>
+					Get Hour from Clock
+				</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="number" connector-kind="plug"/>
+      </BlockConnectors>
+    </BlockGenus>
+    
+    <BlockGenus name="mcj_rtcgetminute" kind="data" color="232 156 149" initlabel="bg.mcj_rtcgetminute">
+      <description>
+        <text>
+					Get Minute from Clock
+				</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="number" connector-kind="plug"/>
+      </BlockConnectors>
     </BlockGenus>
     
     
@@ -8121,13 +8175,11 @@
        <BlockGenusMember>me_ultrasonic_sensor</BlockGenusMember>
        <!-- These are missing implementation pieces... -->
        <BlockGenusMember>mcj_rtcinit</BlockGenusMember>
-       <!--
        <BlockGenusMember>mcj_rtcgetyear</BlockGenusMember>
        <BlockGenusMember>mcj_rtcgetmonth</BlockGenusMember>
        <BlockGenusMember>mcj_rtcgetday</BlockGenusMember>
        <BlockGenusMember>mcj_rtcgethour</BlockGenusMember>
        <BlockGenusMember>mcj_rtcgetminute</BlockGenusMember>
-         -->
        
       </BlockDrawer>
       <BlockDrawer button-color="190 0 0" name="bd.craftoemotors" type="factory">
