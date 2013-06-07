@@ -27,6 +27,11 @@ public class Translator
 {
 	private static final String variablePrefix = "_ABVAR_";
 
+  public static boolean chipselect = false;
+  public static boolean header = false;
+  public static boolean fundefs = false;
+  
+
 	private Set<String> headerFileSet;
 	private Set<String> definitionSet;
 	private List<String> setupCommand;
@@ -156,6 +161,11 @@ public class Translator
 		
 		rootBlockName = null;
 		isScoopProgram = false;
+    
+    chipselect = false;
+    fundefs = false;
+    header = false;
+    
 	}
 	
 	private BlockAdaptor buildOpenBlocksAdaptor()
@@ -175,6 +185,7 @@ public class Translator
 	{
 		if (!setupCommand.contains(command))
 		{
+      // System.err.println("Setup Cmd '" + command + "'");
 			setupCommand.add(command);
 		}
 	}
@@ -186,7 +197,10 @@ public class Translator
 	
 	public void addDefinitionCommand(String command)
 	{
-		definitionSet.add(command);
+    if (!definitionSet.contains(command)) {
+      // System.err.println("Adding command: '" + command + "'");
+      definitionSet.add(command);  
+    }
 	}
 	
 	public void addInputPin(String pinNumber)

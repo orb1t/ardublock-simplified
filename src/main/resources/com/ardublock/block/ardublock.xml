@@ -1840,6 +1840,25 @@
         </BlockConnector>
       </BlockConnectors>
     </BlockGenus>
+    <!-- MCJ 20150214 Timestamp write -->
+    <BlockGenus name="sd_writetimestamp" kind="command" color="0 100 90" initlabel="bg.sd_writetimestamp">
+      <description>
+        <text>Timestamped write of data to SD card.</text>
+      </description>
+      <BlockConnectors>
+        <BlockConnector connector-type="string" connector-kind="socket" label="File">
+          <DefaultArg genus-name="glue_msg" label="file.txt"/>
+        </BlockConnector>
+        <BlockConnector connector-type="string" connector-kind="socket" label="Data">
+          <DefaultArg genus-name="message" label="Message"/>
+        </BlockConnector>
+        <BlockConnector connector-type="boolean" connector-kind="socket" label="bc.ln">
+          <DefaultArg genus-name="true" label="True"/>
+        </BlockConnector>
+      </BlockConnectors>
+    </BlockGenus>
+
+
     <!-- <BlockGenus name="sd_write" kind="command" color="0 100 90" -->
     <!-- initlabel="bg.sd_write"> -->
     <!-- <description> -->
@@ -8166,6 +8185,7 @@
         <BlockGenusMember>eeprom_read</BlockGenusMember>
         <BlockGenusMember>eeprom_write</BlockGenusMember>
         <BlockGenusMember>sd_write2</BlockGenusMember>
+        <BlockGenusMember>sd_writetimestamp</BlockGenusMember>
         <!-- <BlockGenusMember>sd_write</BlockGenusMember> -->
         <!-- <BlockGenusMember>sd_write_number</BlockGenusMember> -->
         <!-- <BlockGenusMember>sd_write_number_int</BlockGenusMember> -->

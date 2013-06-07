@@ -8,6 +8,13 @@ import com.ardublock.translator.block.exception.SubroutineNotDeclaredException;
 
 public class SDWriteNumberBlock extends TranslatorBlock
 {
+  
+  public static void reset(Translator t) {
+    t.chipselect = false;
+    t.header = false;
+    t.fundefs = false;
+  }
+  
 	public SDWriteNumberBlock(Long blockId, Translator translator, String codePrefix, String codeSuffix, String label)
 	{
 		super(blockId, translator, codePrefix, codeSuffix, label);
@@ -16,7 +23,8 @@ public class SDWriteNumberBlock extends TranslatorBlock
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
-		setupSDEnvironment(translator);
+    setupSDEnvironment(translator);
+    
 		
 		String ret = "";
 		
@@ -58,12 +66,29 @@ public class SDWriteNumberBlock extends TranslatorBlock
 	private static final String SD_INT_DEFINITION = "void __ardublockWriteNumberIntSD (String file_name,int number)\n{\nchar Filename[12];\nfile_name.toCharArray(Filename, 12);\nFile dataFile = SD.open(Filename, FILE_WRITE);\n\nif (dataFile)\n{\ndataFile.print(number);\ndataFile.close();\n}\n\n}\n\nvoid __ardublockWriteNumberIntSDln (String file_name,int number)\n{\nchar Filename[12];\nfile_name.toCharArray(Filename, 12);\nFile dataFile = SD.open(Filename, FILE_WRITE);\n\nif (dataFile)\n{\ndataFile.println(number);\ndataFile.close();\n}\n\n}\n\n";
 	private static final String SD_SETUP_DEFINITION = "const int chipSelect = 10;\nSD.begin(chipSelect);\n";	
 	
+  public static void setupSDHeader (Translator t) {
+    if (!t.header) {
+      t.header = true;
+      t.addHeaderFile("SD.h");
+    }
+  }
+  
+  public static void setupSDChipselect (Translator t) {
+    if (!t.chipselect) {
+      t.chipselect = true;
+      t.addSetupCommand(SD_SETUP_DEFINITION);
+    }
+  }
+  
 	public static void setupSDEnvironment(Translator t)
 	{
-		t.addHeaderFile("SD.h");
-		t.addDefinitionCommand(SD_DEFINITION);
-		t.addDefinitionCommand(SD_INT_DEFINITION);
-		t.addSetupCommand(SD_SETUP_DEFINITION);
-	}
-	
+    setupSDHeader(t);
+    setupSDChipselect(t);
+    
+    if (!t.fundefs) {
+        t.fundefs = true;
+    		t.addDefinitionCommand(SD_DEFINITION);
+    		t.addDefinitionCommand(SD_INT_DEFINITION);  
+      }
+    }
 }

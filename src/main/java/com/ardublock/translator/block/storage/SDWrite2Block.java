@@ -1,5 +1,6 @@
 package com.ardublock.translator.block.storage;
 
+import com.ardublock.core.Context;
 import com.ardublock.translator.Translator;
 import com.ardublock.translator.block.TranslatorBlock;
 import com.ardublock.translator.block.exception.SocketNullException;
@@ -15,20 +16,41 @@ public class SDWrite2Block extends TranslatorBlock
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
-	    translator.addDefinitionCommand("#include <SD.h>\n");
-	    translator.addSetupCommand("\tconst int chipSelect = 10;\n\tSD.begin(chipSelect);\n");
-		TranslatorBlock data = this.getRequiredTranslatorBlockAtSocket(0);
-		String ret="\tFile datafile = SD.open(\""+data.toCode()+"\", FILE_WRITE);\n";
-		ret+="\tif(datafile){\n";
-        data=this.getRequiredTranslatorBlockAtSocket(1, "\t\tdatafile.print( ", " );\n\t\tdatafile.print(\" \");\n");
-        ret+=data.toCode();
-        data=this.getRequiredTranslatorBlockAtSocket(2);
-        String test=data.toCode();
-		if(test.equals("true")){
-		    ret+="\t\tdatafile.println(\"\");\n";
+    SDWriteNumberBlock.setupSDHeader(translator);
+    SDWriteNumberBlock.setupSDChipselect(translator);
+
+		String ret = "";
+		
+		Context context = Context.getContext();
+		if (context.getArduinoVersionString().equals(Context.ARDUINO_VERSION_UNKNOWN))
+		{
+			ret += "//Unable to detect your Arduino version, using 1.0 in default\n";
 		}
-		ret+="\t\tdatafile.close();\n";
-        ret+="\t}\n";
-		return  ret ;
-	}
+		
+		TranslatorBlock t1 = getRequiredTranslatorBlockAtSocket(0);
+		String b1 = t1.toCode();
+		TranslatorBlock t2 = getRequiredTranslatorBlockAtSocket(1);
+		String b2 = t2.toCode();
+		TranslatorBlock t3 = getRequiredTranslatorBlockAtSocket(2);
+		String b3 = t3.toCode();
+
+    translator.addSetupCommand("Wire.begin();");
+
+		if (b2.equals("Return")) {
+
+			ret += "__ardublockWriteStringSDln ( ";
+			
+        } else {
+
+        	ret += "__ardublockWriteStringSD ( ";
+
+		}		
+    
+      ret = ret + "\"" + b1 + "\"";
+      ret = ret +",";
+      ret = ret + b2;
+      ret = ret + ");\n";
+      
+		return codePrefix + ret + codeSuffix;
+}
 }

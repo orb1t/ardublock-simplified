@@ -16,7 +16,8 @@ public class SDWriteNumberIntBlock extends TranslatorBlock
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
-		SDWriteNumberBlock.setupSDEnvironment(translator);
+    
+    SDWriteNumberBlock.setupSDEnvironment(translator);
 		
 		String ret = "";
 		
