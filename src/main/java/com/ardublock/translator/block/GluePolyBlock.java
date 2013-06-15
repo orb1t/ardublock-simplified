@@ -15,11 +15,15 @@ public class GluePolyBlock extends TranslatorBlock
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
 		String ret = "";
+    
+
+     
 		TranslatorBlock translatorBlock = this.getTranslatorBlockAtSocket(0, codePrefix, codeSuffix);
 		if (translatorBlock != null)
 		{
 			ret = translatorBlock.toCode();
 		}
+    //System.out.println("GluePolyBlock: " + ret);
 		return ret;
 	}
 

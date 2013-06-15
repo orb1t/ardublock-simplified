@@ -14,6 +14,9 @@ public class GlueMSGBlock extends TranslatorBlock
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
+    
+    //System.out.println("GlueMSGBlock: " + label);
+    
 		//TODO take out special character
 		String ret;
 		ret = label.replaceAll("\\\\", "\\\\\\\\");

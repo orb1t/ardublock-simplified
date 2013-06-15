@@ -20,6 +20,9 @@ public class GlueSNBlock extends TranslatorBlock
 		{
 			ret = translatorBlock.toCode();
 		}
+    
+    //System.out.println("GlueSNBlock: " + label + " ret: " + ret);
+    
 		return ret;
 	}
 

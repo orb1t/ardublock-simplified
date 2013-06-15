@@ -55,7 +55,9 @@ public class TimestampSDWriteBlock extends TranslatorBlock
     // Add grab of time.
 	  ret += "\n" + varName + " = RTC.now();\n";
 
-		if (b2.equals("Return")) {
+    // System.out.println("B2: " + b2);
+
+		if (b3.equals("Return")) {
 
 			ret += "__ardublockWriteStringSDln ( ";
 			
@@ -72,7 +74,7 @@ public class TimestampSDWriteBlock extends TranslatorBlock
       timestamp += "String(" +  varName + ".minute()" + ") + " + "\",\" + ";
     
       ret = ret + "\"" + b1 + "\"";
-      ret = ret +",";
+      ret = ret +", ";
       ret = ret + timestamp + b2;
       ret = ret + ");\n";
 

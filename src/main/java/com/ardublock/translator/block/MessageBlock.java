@@ -13,7 +13,8 @@ public class MessageBlock extends TranslatorBlock
 
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
-	{
+	{ 
+    // System.out.println("MessageBlock");
 		//TODO take out special character
 		String ret;
 		ret = label.replaceAll("\\\\", "\\\\\\\\");
@@ -24,11 +25,14 @@ public class MessageBlock extends TranslatorBlock
 		ret = ret.replaceAll("<&nothing>", "");
 		// A way to add \t to messages
 		ret = ret.replaceAll("<&tab>", "\\\\t");
-		ret = codePrefix + "\"" + ret + "\"" + codeSuffix;
+    
+		ret = codePrefix + "\"" + ret + "\"" ;
+    ret += codeSuffix;
+    
 		TranslatorBlock translatorBlock = this.getTranslatorBlockAtSocket(0, codePrefix, codeSuffix);
 		if (translatorBlock != null)
 		{
-			ret = ret + translatorBlock.toCode();
+			ret = ret + " + " + translatorBlock.toCode();
 		}
 		return ret;
 	}

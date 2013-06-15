@@ -14,15 +14,20 @@ public class Message2Block extends TranslatorBlock
 	@Override
 	public String toCode() throws SocketNullException, SubroutineNotDeclaredException
 	{
+    // System.out.println("MessageBlock2");
+    
 		//TODO take out special character
 		String ret;
 		ret = label.replaceAll("\\\\", "\\\\\\\\");
 		ret = ret.replaceAll("\"", "\\\\\"");
-		ret = codePrefix + "\"" + ret + "\"" + codeSuffix;
+    // 20150226 MCJ Added a plus to the output... may not work in all situations?
+		ret = codePrefix + "\"" + ret + "\"" ;
+    ret += codeSuffix;
+    
 		TranslatorBlock translatorBlock = this.getTranslatorBlockAtSocket(0, codePrefix, codeSuffix);
 		if (translatorBlock != null)
 		{
-			ret = ret + translatorBlock.toCode();
+			ret = ret + " + " + translatorBlock.toCode();
 		}
 		return ret;
 	}
